@@ -467,6 +467,7 @@ class RequestsKeywords(object):
             alias,
             uri,
             data=None,
+            json=None,
             params=None,
             headers=None,
             files=None,
@@ -484,6 +485,9 @@ class RequestsKeywords(object):
                or binary data that is sent as the raw body content
                or passed as such for multipart form data if ``files`` is also
                   defined
+
+        ``json`` a value that will be json encoded
+               and sent as POST data if files or data is not specified
 
         ``params`` url parameters to append to the uri
 
@@ -505,6 +509,7 @@ class RequestsKeywords(object):
             session,
             uri,
             data,
+            json,
             params,
             files,
             headers,
@@ -557,6 +562,7 @@ class RequestsKeywords(object):
             uri,
             data,
             None,
+            None,
             files,
             headers,
             redir,
@@ -604,6 +610,7 @@ class RequestsKeywords(object):
             session,
             uri,
             data,
+            None,
             params,
             files,
             headers,
@@ -659,6 +666,7 @@ class RequestsKeywords(object):
             uri,
             data,
             None,
+            None,
             files,
             headers,
             redir,
@@ -671,6 +679,7 @@ class RequestsKeywords(object):
             alias,
             uri,
             data=None,
+            json=None,
             params=None,
             files=None,
             headers=None,
@@ -682,6 +691,13 @@ class RequestsKeywords(object):
         ``alias`` that will be used to identify the Session object in the cache
 
         ``uri`` to send the PUT request to
+
+        ``data`` a dictionary of key-value pairs that will be urlencoded
+               and sent as POST data
+               or binary data that is sent as the raw body content
+
+        ``json`` a value that will be json encoded
+               and sent as POST data if data is not specified
 
         ``headers`` a dictionary of headers to use with the request
 
@@ -700,6 +716,7 @@ class RequestsKeywords(object):
             session,
             uri,
             data,
+            json,
             params,
             files,
             headers,
@@ -746,6 +763,7 @@ class RequestsKeywords(object):
             session,
             uri,
             data,
+            None,
             None,
             None,
             headers,
@@ -962,6 +980,7 @@ class RequestsKeywords(object):
             session,
             uri,
             data,
+            json,
             params,
             files,
             headers,
@@ -972,6 +991,7 @@ class RequestsKeywords(object):
         method = getattr(session, method_name)
         resp = method(self._get_url(session, uri),
                       data=data,
+                      json=json,
                       params=self._utf8_urlencode(params),
                       files=files,
                       headers=headers,
