@@ -575,6 +575,7 @@ class RequestsKeywords(object):
             alias,
             uri,
             data=None,
+            json=None,
             params=None,
             headers=None,
             files=None,
@@ -590,6 +591,9 @@ class RequestsKeywords(object):
         ``data`` a dictionary of key-value pairs that will be urlencoded
                and sent as PATCH data
                or binary data that is sent as the raw body content
+
+        ``json`` a value that will be json encoded
+               and sent as PATCH data if data is not specified
 
         ``headers`` a dictionary of headers to use with the request
 
@@ -610,7 +614,7 @@ class RequestsKeywords(object):
             session,
             uri,
             data,
-            None,
+            json,
             params,
             files,
             headers,
@@ -776,7 +780,8 @@ class RequestsKeywords(object):
             self,
             alias,
             uri,
-            data=(),
+            data=None,
+            json=None,
             params=None,
             headers=None,
             allow_redirects=None,
@@ -787,6 +792,9 @@ class RequestsKeywords(object):
         ``alias`` that will be used to identify the Session object in the cache
 
         ``uri`` to send the DELETE request to
+
+        ``json`` a value that will be json encoded
+               and sent as request data if data is not specified
 
         ``headers`` a dictionary of headers to use with the request
         
@@ -799,7 +807,7 @@ class RequestsKeywords(object):
         redir = True if allow_redirects is None else allow_redirects
 
         response = self._delete_request(
-            session, uri, data, params, headers, redir, timeout)
+            session, uri, data, json, params, headers, redir, timeout)
 
         if isinstance(data, bytes):
             data = data.decode('utf-8')
@@ -837,7 +845,7 @@ class RequestsKeywords(object):
         redir = True if allow_redirects is None else allow_redirects
 
         response = self._delete_request(
-            session, uri, data, None, headers, redir, timeout)
+            session, uri, data, json, None, headers, redir, timeout)
 
         return response
 
@@ -1014,6 +1022,7 @@ class RequestsKeywords(object):
             session,
             uri,
             data,
+            json,
             params,
             headers,
             allow_redirects,
@@ -1022,6 +1031,7 @@ class RequestsKeywords(object):
 
         resp = session.delete(self._get_url(session, uri),
                               data=data,
+                              json=json,
                               params=self._utf8_urlencode(params),
                               headers=headers,
                               allow_redirects=allow_redirects,
